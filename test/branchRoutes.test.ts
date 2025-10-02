@@ -50,4 +50,16 @@ describe("Branch API - Selected Tests", () => {
     expect(res.status).toBe(404);
   });
 
+   // 8. Delete Branch - Success
+  it("DELETE /api/v1/branches/:id - should delete a branch", async () => {
+    const res = await request(app).delete(`/api/v1/branches/${branchId}`);
+    expect(res.status).toBe(200);
+  });
+
+  // 9. Delete Branch - Invalid ID
+  it("DELETE /api/v1/branches/:id - should return 404 for invalid ID", async () => {
+    const res = await request(app).delete("/api/v1/branches/9999");
+    expect(res.status).toBe(404);
+  });
+  
 });
