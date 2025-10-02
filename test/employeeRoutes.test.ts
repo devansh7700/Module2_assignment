@@ -60,4 +60,16 @@ describe("Employee API - Selected Tests", () => {
     expect(res.status).toBe(404);
   });
 
+  // 8. Delete Employee - Success
+  it("DELETE /api/v1/employees/:id - should delete an employee", async () => {
+    const res = await request(app).delete(`/api/v1/employees/${employeeId}`);
+    expect(res.status).toBe(200);
+  });
+
+  // 9. Delete Employee - Invalid ID
+  it("DELETE /api/v1/employees/:id - should return 404 for invalid ID", async () => {
+    const res = await request(app).delete("/api/v1/employees/9999");
+    expect(res.status).toBe(404);
+  });
+
 });
