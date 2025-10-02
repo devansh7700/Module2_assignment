@@ -1,9 +1,11 @@
 import express from "express";
 
-import employeeRoutes from "./api/v1/routes/employeeroutes";
-
 // Importing morgan
 import morgan from "morgan";
+
+import employeeRoutes from "./api/v1/routes/employeeroutes";
+
+import branchRoutes from "./api/v1/routes/branchroutes";
 
 const app = express();
 
@@ -16,8 +18,8 @@ app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
 });
 
-// API v1 routes 
-
 app.use("/api/v1/employees", employeeRoutes);
+
+app.use("/api/v1/branches", branchRoutes);
 
 export default app;
