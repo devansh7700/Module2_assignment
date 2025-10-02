@@ -24,4 +24,15 @@ describe("Branch API - Selected Tests", () => {
     expect(Array.isArray(res.body.data)).toBe(true);
   });
 
+  it("GET /api/v1/branches/:id - should return a branch", async () => {
+    const res = await request(app).get(`/api/v1/branches/${branchId}`);
+    expect(res.status).toBe(200);
+    expect(res.body.data.id).toBe(branchId);
+  });
+
+  it("GET /api/v1/branches/:id - should return 404 for invalid ID", async () => {
+    const res = await request(app).get("/api/v1/branches/9999");
+    expect(res.status).toBe(404);
+  });
+
 });
