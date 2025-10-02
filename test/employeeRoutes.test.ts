@@ -34,4 +34,15 @@ describe("Employee API - Selected Tests", () => {
     expect(Array.isArray(res.body.data)).toBe(true);
   });
 
+  it("GET /api/v1/employees/:id - should return a single employee", async () => {
+    const res = await request(app).get(`/api/v1/employees/${employeeId}`);
+    expect(res.status).toBe(200);
+    expect(res.body.data.id).toBe(employeeId);
+  });
+
+  it("GET /api/v1/employees/:id - should return 404 for invalid ID", async () => {
+    const res = await request(app).get("/api/v1/employees/9999");
+    expect(res.status).toBe(404);
+  });
+
 });
