@@ -1,57 +1,35 @@
-import { employees, Employee } from "../../../data/employees";
- 
+import { Employee, employees } from "../../../data/employees";
+
 // Get all employees
-
 export const getAllEmployees = (): Employee[] => {
-
   return employees;
-
 };
- 
+
 // Get employee by ID
-
 export const getEmployeeById = (id: number): Employee | undefined => {
-
-  return employees.find(emp => emp.id === id);
-
+  return employees.find((e) => e.id === id);
 };
- 
-// Create a new employee
 
-export const createEmployee = (employee: Employee): Employee => {
-
-  employees.push(employee);
-
-  return employee;
-
+// Create employee
+export const createEmployee = (emp: Omit<Employee, "id">): Employee => {
+  const newId = employees.length > 0 ? employees[employees.length - 1].id + 1 : 1;
+  const newEmployee: Employee = { ...emp, id: newId };
+  employees.push(newEmployee);
+  return newEmployee;
 };
- 
-// Update employee by ID
 
-export const updateEmployee = (id: number, updated: Partial<Employee>): Employee | null => {
-
-  const index = employees.findIndex(emp => emp.id === id);
-
-  if (index === -1) return null;
- 
-  employees[index] = { ...employees[index], ...updated };
-
+// Update employee
+export const updateEmployee = (id: number, emp: Partial<Omit<Employee, "id">>): Employee | undefined => {
+  const index = employees.findIndex((e) => e.id === id);
+  if (index === -1) return undefined;
+  employees[index] = { ...employees[index], ...emp };
   return employees[index];
-
 };
- 
-// Delete employee by ID
 
+// Delete employee
 export const deleteEmployee = (id: number): boolean => {
-
-  const index = employees.findIndex(emp => emp.id === id);
-
+  const index = employees.findIndex((e) => e.id === id);
   if (index === -1) return false;
- 
   employees.splice(index, 1);
-
   return true;
-
 };
-
- 
