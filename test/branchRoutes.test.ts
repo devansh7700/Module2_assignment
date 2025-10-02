@@ -18,4 +18,10 @@ describe("Branch API - Selected Tests", () => {
     expect(res.status).toBe(400);
   });
 
+  it("GET /api/v1/branches - should return all branches", async () => {
+    const res = await request(app).get("/api/v1/branches");
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body.data)).toBe(true);
+  });
+
 });
