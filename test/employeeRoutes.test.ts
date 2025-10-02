@@ -45,4 +45,19 @@ describe("Employee API - Selected Tests", () => {
     expect(res.status).toBe(404);
   });
 
+  it("PUT /api/v1/employees/:id - should update employee details", async () => {
+    const res = await request(app)
+      .put(`/api/v1/employees/${employeeId}`)
+      .send({ position: "Senior Developer" });
+    expect(res.status).toBe(200);
+    expect(res.body.data.position).toBe("Senior Developer");
+  });
+
+  it("PUT /api/v1/employees/:id - should return 404 for invalid ID", async () => {
+    const res = await request(app)
+      .put("/api/v1/employees/9999")
+      .send({ position: "Senior Developer" });
+    expect(res.status).toBe(404);
+  });
+
 });
