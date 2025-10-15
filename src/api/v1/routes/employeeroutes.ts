@@ -1,12 +1,14 @@
 import { Router } from "express";
 import * as employeeController from "../controllers/employeecontroller";
+import { validateBody } from "../middleware/validate";
+import { createEmployeeSchema, updateEmployeeSchema } from "../validation/employeevalidation";
 
 const router = Router();
 
 router.get("/", employeeController.getAllEmployeesController);
 router.get("/:id", employeeController.getEmployeeByIdController);
-router.post("/", employeeController.createEmployeeController);
-router.put("/:id", employeeController.updateEmployeeController);
+router.post("/", validateBody(createEmployeeSchema), employeeController.createEmployeeController);
+router.put("/:id", validateBody(updateEmployeeSchema), employeeController.updateEmployeeController);
 router.delete("/:id", employeeController.deleteEmployeeController);
 
 router.get("/branch/:branchId", employeeController.getEmployeesByBranchController);
