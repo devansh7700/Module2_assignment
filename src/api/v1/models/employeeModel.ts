@@ -1,10 +1,10 @@
 export interface Employee {
-  id?: string;              
+  id?: number;              
   email: string;
   position: string;
   department?: string;
   phone?: string;
-  branchId: string;
+  branchId: number;
   createdAt?: string;
   updatedAt?: string;
 }
