@@ -9,3 +9,5 @@ export interface ApiError {
   message: string;
   error?: string;
 }
+
+export type ApiResult<T> = ApiResponse<T> | ApiError;
