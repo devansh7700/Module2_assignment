@@ -22,7 +22,7 @@ describe("Employee Validation Schema", () => {
   });
 });
 
-// ✅ Update Employee Schema Tests
+// Update Employee Schema Tests
   describe("updateEmployeeSchema", () => {
     it("should pass when valid update data is provided", () => {
       const validUpdate = { position: "Senior Manager" };
