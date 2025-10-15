@@ -9,4 +9,7 @@ router.post("/", employeeController.createEmployeeController);
 router.put("/:id", employeeController.updateEmployeeController);
 router.delete("/:id", employeeController.deleteEmployeeController);
 
+router.get("/branch/:branchId", employeeController.getEmployeesByBranch);
+router.get("/department/:department", employeeController.getEmployeesByDepartment);
+
 export default router;
