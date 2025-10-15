@@ -50,3 +50,31 @@ export const deleteEmployeeController = (req: Request, res: Response) => {
     ? res.status(200).json({ message: `Employee with ID ${id} deleted` })
     : res.status(404).json({ message: `Employee with ID ${id} not found` });
 };
+
+// ✅ Get employees by branch
+export const getEmployeesByBranchController = (req: Request, res: Response) => {
+  const branchId = Number(req.params.branchId);
+  const employees = isNaN(branchId)
+    ? null
+    : employeeService.getEmployeesByBranch(branchId);
+
+  !employees
+    ? res.status(400).json({ message: "Invalid branch ID" })
+    : employees.length
+    ? res.status(200).json({ message: "Employees found for this branch", data: employees })
+    : res.status(404).json({ message: "No employees found for this branch" });
+};
+
+// ✅ Get employees by department
+export const getEmployeesByDepartmentController = (req: Request, res: Response) => {
+  const department = req.params.department;
+  const employees = department
+    ? employeeService.getEmployeesByDepartment(department)
+    : null;
+
+  !employees
+    ? res.status(400).json({ message: "Department parameter is required" })
+    : employees.length
+    ? res.status(200).json({message: "Employees found for this department",data: employees,})
+    : res.status(404).json({ message: "No employees found for this department" });
+};
