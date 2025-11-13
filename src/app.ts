@@ -1,13 +1,9 @@
 import express from "express";
-
-// Importing morgan
 import morgan from "morgan";
-
 import employeeRoutes from "./api/v1/routes/employeeroutes";
-
 import branchRoutes from "./api/v1/routes/branchroutes";
-
 import dotenv from "dotenv";
+import helmet from "helmet";
 
 const app = express();
 
@@ -18,6 +14,9 @@ app.use(morgan("combined"));
 
 // Load environment variables BEFORE your internal imports!
 dotenv.config();
+
+// Apply basic Helmet security
+app.use(helmet());
 
 app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
