@@ -5,8 +5,8 @@ export const getAllBranches = (): Branch[] => branches;
 export const getBranchById = (id: number): Branch | undefined =>
   branches.find((branch) => branch.id === id);
 
-export const createBranch = (branch: Branch): Branch => {
-  const newBranch = { ...branch, id: branches.length + 1 };
+export const createBranch = (branch: Omit<Branch, "id">): Branch => {
+  const newBranch: Branch = { id: branches.length + 1, ...branch };
   branches.push(newBranch);
   return newBranch;
 };

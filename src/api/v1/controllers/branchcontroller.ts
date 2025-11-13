@@ -29,8 +29,9 @@ export const createBranch = (req: Request, res: Response<ApiResponse<Branch>>): 
   }
 
   const newBranch = branchService.createBranch({ name, address, phone });
-  res.status(201).json({ message: "Branch created", data: newBranch });
+  res.status(201).json({ success: true, message: "Branch created", data: newBranch });
 };
+
 
 export const updateBranch = (req: Request, res: Response<ApiResponse<Branch>>): void => {
   const id = Number(req.params.id);
@@ -41,7 +42,7 @@ export const updateBranch = (req: Request, res: Response<ApiResponse<Branch>>): 
     return;
   }
 
-  res.status(200).json({success: true, message: "Branch updated", data: branch });
+  res.status(200).json({ success: true, message: "Branch updated", data: updatedBranch });
 };
 
 export const deleteBranch = (req: Request, res: Response<ApiResponse<null>>): void => {
