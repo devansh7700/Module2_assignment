@@ -5,15 +5,15 @@ import branchRoutes from "./api/v1/routes/branchroutes";
 import dotenv from "dotenv";
 import helmet from "helmet";
 
+// Load environment variables BEFORE your internal imports!
+dotenv.config();
+
 const app = express();
 
 app.use(express.json());
 
 // Use morgan for HTTP request logging
 app.use(morgan("combined"));
-
-// Load environment variables BEFORE your internal imports!
-dotenv.config();
 
 // Apply basic Helmet security
 app.use(helmet());
