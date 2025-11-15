@@ -26,4 +26,14 @@ app.use("/api/v1/employees", employeeRoutes);
 
 app.use("/api/v1/branches", branchRoutes);
 
+app.use((req, res, next) => {
+  if (req.path.includes("/users") || req.path.includes("/admin")) {
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+    res.setHeader("X-RateLimit-Policy", "100-per-hour");
+  }
+  next();
+});
+
 export default app;
