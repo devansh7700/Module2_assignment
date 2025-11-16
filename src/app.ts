@@ -5,6 +5,7 @@ import branchRoutes from "./api/v1/routes/branchroutes";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import cors from "cors";
+import { getCorsOptions } from "./config/corsconfig";
 
 // Load environment variables BEFORE your internal imports!
 dotenv.config();
@@ -19,7 +20,31 @@ app.use(morgan("combined"));
 // Apply basic Helmet security
 app.use(helmet());
 
-app.use(cors());
+app.use(cors(getCorsOptions()));
+
+// Public endpoints (anyone can access)
+const publicCorsOptions = {
+    origin: "*",
+    methods: ["GET"],
+};
+
+// Strict authenticated endpoints
+const strictCorsOptions = {
+    origin: process.env.ALLOWED_ORIGINS?.split(",") || [],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+// Apply public CORS
+app.use("/health", cors(publicCorsOptions));
+app.use("/api-docs", cors(publicCorsOptions));
+
+// Apply strict CORS
+app.use("/api/v1/users", cors(strictCorsOptions));
+app.use("/api/v1/admin", cors(strictCorsOptions));
+app.use("/api/v1/employees", cors(strictCorsOptions));
+app.use("/api/v1/branches", cors(strictCorsOptions));
 
 app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
