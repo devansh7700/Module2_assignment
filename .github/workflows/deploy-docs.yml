@@ -1,8 +1,9 @@
 name: Deploy Documentation
 
 on:
-    workflow_dispatch: # Only run when manually triggered
-
+   push:
+     branches:
+        - docs-and-security
 jobs:
     deploy-docs:
         runs-on: ubuntu-latest
