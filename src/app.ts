@@ -4,6 +4,7 @@ import employeeRoutes from "./api/v1/routes/employeeroutes";
 import branchRoutes from "./api/v1/routes/branchroutes";
 import dotenv from "dotenv";
 import helmet from "helmet";
+import cors from "cors";
 
 // Load environment variables BEFORE your internal imports!
 dotenv.config();
@@ -17,6 +18,8 @@ app.use(morgan("combined"));
 
 // Apply basic Helmet security
 app.use(helmet());
+
+app.use(cors());
 
 app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
