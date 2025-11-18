@@ -36,23 +36,15 @@ const strictCorsOptions = {
     allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-// Apply public CORS
-app.use("/health", cors(publicCorsOptions));
-app.use("/api-docs", cors(publicCorsOptions));
-
-// Apply strict CORS
-app.use("/api/v1/users", cors(strictCorsOptions));
-app.use("/api/v1/admin", cors(strictCorsOptions));
-app.use("/api/v1/employees", cors(strictCorsOptions));
-app.use("/api/v1/branches", cors(strictCorsOptions));
-
 app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
 });
 
-app.use("/api/v1/employees", employeeRoutes);
+app.use("/api-docs", cors(publicCorsOptions));
 
-app.use("/api/v1/branches", branchRoutes);
+app.use("/api/v1/employees", cors(strictCorsOptions), employeeRoutes);
+app.use("/api/v1/branches", cors(strictCorsOptions), branchRoutes);
+
 
 app.use((req, res, next) => {
   if (req.path.includes("/users") || req.path.includes("/admin")) {
